@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="logo.ico" />
+    <link rel="stylesheet" type="text/css" href="stylesheet/ap.css">
+    <title>Configuraci&oacute;n</title>
+</head>
+<body>
+    <input type="checkbox" id="check">
+    <div class="contenedor">
+        <header>
+            <label for="check" class="toggle" id="main-toggle"></label>
+            <div class="logo">
+                <img src="logo.ico" alt="">
+                <h3>SmartLeaf</h3>
+            </div>
+        </header>
+        <div class="menu">
+            <nav >
+                <ul class="menu-ul">
+                    <li><a href="./">Inicio</a></li>
+                    <li>Configuraci&oacute;n Red
+                        <ul>
+                            <li><a href="apn.html">APN</a></li>
+                            <li><a href="ap.html">Punto De Acceso</a></li>
+                            <li><a href="#">Estaci&oacute;n</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="hour.html">Configuraci&oacute;n Hora</a></li>
+                    <li><a href="time.html">Configuraci&oacute;n Tiempo</a></li>
+                    <li>Calibrar
+                        <ul>
+                            <li><a href="calibrar.html?type=co">Monoxido de Carbono</a></li>
+                            <li><a href="calibrar.html?type=co2">Dioxido de Carbono</a></li>
+                            <li><a href="calibrar.html?type=ch4">Metano</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="download.html">Descargar Datos</a></li>
+                    <li><a href="erase_data.html?type=datos">Borrar datos</a></li>
+                    <li><a href="erase_data.html?type=config">Borrar Configuraci&oacute;n</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="info-1">
+            <h2>Estaci&oacute;n</h2>
+            <h4>Configurar SSID y Contrase&ntilde;a para conectarse a punto de Acceso</h4>
+            <form action="save.html" method="post">
+                <div class="input">
+                    <input type="text" id="ssid" placeholder="SSID" name="0">
+                    <input type="text" id="pass" placeholder="CONTRASE&Ntilde;A" name="1">
+                    <input type="hidden" name="type" value="2">
+                    <button id="save">Guardar</button>
+                </div>
+            </form>
+        </div>
+        <footer class="footer">
+            <p>Copyright &copy; Cesar Contreras 2019-2020</p>
+        </footer>
+    </div>
+</body>
+</html>

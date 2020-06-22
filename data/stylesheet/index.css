@@ -1,0 +1,314 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background: #e9ecf4;
+    padding: 0 1em;
+}
+
+.menu-ul a{
+    text-decoration: none;
+    color: #ddd;
+    display: block;
+    width: 100%;
+    padding-left: 24px;
+    background: url("iconos.png") no-repeat left top;
+}
+
+.menu-ul li{
+    color: #000000;
+    font-size: 1em;
+    box-shadow: 3px 0 rgba(255, 255, 255, .2) inset;
+    padding-left: 0.2em;
+    margin-bottom: 5px;
+    transition: all .4s;
+}
+
+.menu-ul li:hover{
+    box-shadow: 15em 0 rgba(255, 255, 255, .2) inset;
+} 
+
+.menu-ul{
+    line-height: 24px;
+    list-style: none;
+    width: 15em;
+}
+
+.menu-ul li ul{
+    list-style: none;
+}
+
+.menu-ul li:nth-child(2) ul{
+    border-bottom: 1px solid #3b3a75;
+    border-top: 1px solid #3b3a75;
+}
+
+.menu-ul li:nth-child(2) ul li:nth-child(1) a{
+    background-position: 0 -48px;
+    border: none;
+}
+.menu-ul li:nth-child(2) ul li:nth-child(2) a{
+    background-position: 0 -72px;
+    border: none;
+}
+.menu-ul li:nth-child(2) ul li:nth-child(3) a{
+    background-position: 0 -96px;
+    border: none;
+}
+
+.menu-ul li:nth-child(3) a{
+    background-position: 0 -120px;
+}
+
+.menu-ul li:nth-child(4) a{
+    background-position: 0 -144px;
+}
+
+.menu-ul li:nth-child(5) ul{
+   border-bottom: 1px solid #3b3a75;
+   border-top: 1px solid #3b3a75;
+}
+
+.menu-ul li:nth-child(5) ul li:nth-child(1) a{
+    background-position: 0 -192px;
+    border: none;
+}
+
+.menu-ul li:nth-child(5) ul li:nth-child(2) a{
+    background-position: 0 -216px;
+    border: none;
+}
+
+.menu-ul li:nth-child(5) ul li:nth-child(3) a{
+    background-position: 0 -240px;
+    border: none;
+}
+
+.menu-ul li:nth-child(6) a{
+    background-position: 0 -264px;
+    border: none;
+}
+
+.menu-ul li:nth-child(7) a{
+    background-position: 0 -288px;
+    border: none;
+}
+
+.menu-ul li:nth-child(8) a{
+    background-position: 0 -288px;
+    border: none;
+}
+
+#main-toggle{
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background: url(menu.png);
+    z-index: 30;
+}
+
+.contenedor{
+    width: 90%;
+    max-width: 1000px;
+    margin: 20px auto;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, auto);
+    grid-template-areas: "header header header"
+                         "info-1 info-1 info-1"
+                         "info-2 info-2 info-3"
+                         "info-4 info-5 info-6" 
+                         "info-7 info-8 info-9"
+                         "footer footer footer";
+}
+
+#check{
+    display: none;
+}
+
+#check:checked+div{
+    grid-template-areas: "header header header header"
+                         "menu info-1 info-1 info-1"
+                         "menu info-2 info-2 info-3"
+                         "menu info-4 info-5 info-6"
+                         "menu info-7 info-8 info-9"
+                         "footer footer footer footer";    
+}
+
+#check:checked ~ * .menu{
+    display: block;
+}
+
+.contenedor div,
+.contenedor header,
+.contenedor footer{
+    background: #fff;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.contenedor .menu{
+    background: #6c6c88;
+    grid-area: menu;
+    display: none;
+}
+
+.contenedor .logo{
+    display: flex;
+    background: transparent;
+}
+
+.contenedor header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(183, 197, 171, 0.493);
+    color: #000000;
+    grid-area: header;
+    
+}
+
+.contenedor .info-2,
+.contenedor .info-3,
+.contenedor .info-4,
+.contenedor .info-5,
+.contenedor .info-6,
+.contenedor .info-7,
+.contenedor .info-8,
+.contenedor .info-9{
+    display: block;
+    text-align: center;
+}
+
+.contenedor .info-1{
+    grid-area: info-1;
+    padding: 0;
+}
+
+.contenedor .info-1 .info-1_contenedor{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.contenedor .info-1 .info-1_titulo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor .info-2{
+    grid-area: info-2;
+}
+.contenedor .info-3{
+    grid-area: info-3;
+}
+.contenedor .info-4{
+    grid-area: info-4;
+}
+.contenedor .info-5{
+    grid-area: info-5;
+}
+.contenedor .info-6{
+    grid-area: info-6;
+}
+.contenedor .info-7{
+    grid-area: info-7;
+}
+.contenedor .info-8{
+    grid-area: info-8;
+}
+.contenedor .info-9{
+    grid-area: info-9;
+}
+
+.contenedor .footer{
+    grid-area: footer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenedor header img{
+    margin-left: 20px;
+    width: 30px;
+    height: 30px;
+}
+.contenedor header h3{
+    margin-top: 5px;
+}
+
+@media screen and (max-width: 1200px){
+
+    #check:checked+div{
+        grid-template-areas: "header header header"
+                             "menu info-1 info-1"
+                             "menu info-2 info-3"
+                             "menu info-4 info-5"
+                             "menu info-6 info-7"
+                             "menu info-8 info-9"
+                             "footer footer footer";    
+    }
+}
+
+@media screen and (max-width: 900px){
+    #check:checked+div{
+        grid-template-areas: "header header header"
+                             "menu menu menu"
+                             "info-1 info-1 info-1"
+                             "info-2 info-2 info-3"
+                             "info-4 info-5 info-6"
+                             "info-7 info-8 info-9"
+                             "footer footer footer";    
+    }
+
+    .contenedor{
+        grid-template-areas: "header header header"
+                             "info-1 info-1 info-1"
+                             "info-2 info-2 info-3"
+                             "info-4 info-5 info-6"
+                             "info-7 info-8 info-9"
+                             "footer footer footer"; 
+    }
+
+}
+
+@media screen and (max-width: 600px){
+    .contenedor{
+        grid-template-areas: "header header header"
+                             "info-1 info-1 info-1"
+                             "info-2 info-2 info-2"
+                             "info-3 info-3 info-3"
+                             "info-4 info-4 info-4"
+                             "info-5 info-5 info-5"
+                             "info-6 info-6 info-6"
+                             "info-7 info-7 info-7"
+                             "info-8 info-8 info-8"
+                             "info-9 info-9 info-9"
+                             "footer footer footer"; 
+    }
+}
+
+@media screen and (max-width: 574px){
+    #check:checked+div{
+        grid-template-areas: "header header header"
+                             "menu menu menu"
+                             "info-1 info-1 info-1"
+                             "info-2 info-2 info-2"
+                             "info-3 info-3 info-3"
+                             "info-4 info-4 info-4"
+                             "info-5 info-5 info-5"
+                             "info-6 info-6 info-6"
+                             "info-7 info-7 info-7"
+                             "info-8 info-8 info-8"
+                             "info-9 info-9 info-9"
+                             "footer footer footer";    
+    }
+}
+

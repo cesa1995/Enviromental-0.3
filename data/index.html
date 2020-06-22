@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="logo.ico" />
+    <META HTTP-EQUIV="REFRESH" CONTENT="20;URL=./">
+    <link rel="stylesheet" type="text/css" href="stylesheet/index.css">
+    <title>SmartLeaf</title>
+</head>
+<body>
+    <input type="checkbox" id="check">
+    <div class="contenedor">
+        <header>
+            <label for="check" class="toggle" id="main-toggle"></label>
+            <div class="logo">
+                <img src="logo.ico" alt="">
+                <h3>SmartLeaf</h3>
+            </div>
+        </header>
+        <div class="menu">
+            <nav >
+                <ul class="menu-ul">
+                    <li><a href="#">Inicio</a></li>
+                    <li>Configuraci&oacute;n Red
+                        <ul>
+                            <li><a href="apn.html">APN</a></li>
+                            <li><a href="ap.html">Punto De Acceso</a></li>
+                            <li><a href="sta.html">Estaci&oacute;n</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="hour.html">Configuraci&oacute;n Hora</a></li>
+                    <li><a href="time.html">Configuraci&oacute;n Tiempo</a></li>
+                    <li>Calibrar
+                        <ul>
+                            <li><a href="calibrar.html?type=co">Monoxido de Carbono</a></li>
+                            <li><a href="calibrar.html?type=co2">Dioxido de Carbono</a></li>
+                            <li><a href="calibrar.html?type=ch4">Metano</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="download.html">Descargar Datos</a></li>
+                    <li><a href="erase_data.html?type=datos">Borrar datos</a></li>
+                    <li><a href="erase_data.html?type=config">Borrar Configuraci&oacute;n</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="info-1">
+            <div class="info-1_titulo"><h2>RED</h2></div>
+            <div class="info-1_contenedor">
+                <div>
+                    <h4>APN</h4>
+                    <p>APN: %apn%</p>
+                    <p>Usuario: %user%</p>
+                    <p>Contrase&ntilde;a: %passApn%</p>
+                </div>
+                <div>
+                    <h4>ESTACI&Oacute;N</h4>
+                    <p>SSID: %ssidSta%</p> 
+                    <p>Contrase&ntilde;a: %passSta%</p>
+                </div>
+                <div>
+                    <h4>PUNTO DE ACCESO</h4>
+                    <p>SSID: %ssidAp%</p>
+                    <p>Contrase&ntilde;a: %passAp%</p>
+                </div>
+            </div>
+        </div>
+        <div class="info-2">
+            <h2>HORA </h2>
+            <h4>%hour%</h4>
+            <h2>Tiempo </h2>
+            <h4>%time% min</h4>
+        </div>
+        <div class="info-3">
+            <h2>CO2 </h2>
+            <h4>%co2% ppm</h4>
+            <h4>R0: %rco2%</h4>
+            <h4>ATM: %atmco2%</h4>
+        </div>
+        <div class="info-4">
+            <h2>CO </h2>
+            <h4>%co% ppm</h4>
+            <h4>R0: %rco%</h4>
+            <h4>ATM: %atmco%</h4>
+        </div>
+        <div class="info-5">
+            <h2>CH4 </h2>
+            <h4>%ch4% ppm</h4>
+            <h4>R0: %rch4%</h4>
+            <h4>ATM: %atmch4%</h4>
+        </div>
+        <div class="info-6">
+            <h3>Humedad </h3>
+            <h4>%humedity%</h4>
+            <p>&#37;</p>
+        </div>
+        <div class="info-7">
+            <h3>Temperatura </h3>
+            <h4>%temperature%</h4>
+            <p>&#176;c</p>
+        </div>
+        <div class="info-8">
+            <h3>Presi&oacute;n </h3>
+            <h4>%presion%</h4>
+            <p>hpa</p>
+        </div>
+        <div class="info-9">
+            <h3>Altitud </h3>
+            <h4>%higth%</h4>
+            <p>mts</p>
+        </div>
+        <footer class="footer">
+            <p>Copyright &copy; Cesar Contreras 2019-2020</p>
+        </footer>
+    </div>
+</body>
+</html>
