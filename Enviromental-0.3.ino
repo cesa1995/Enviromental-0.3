@@ -110,25 +110,27 @@ void Task1code( void * pvParameters ) {
   //delay(1000);
   //btStop();
   for (;;) {
-    if(memory.getCo_state()==1){
-      memory.setCo(sensors.readSensorsMQ(memory, adc));
+    if(memory.get_calibrating()==0){
+      if(memory.getCo_state()==1){
+        memory.setCo(sensors.readSensorsMQ(memory, adc));
+        delay(100);
+        memory.setCo_voltage(sensors.getVoltage(sensors.getADC(0,adc)));
+      }else if(memory.getCo2_state()==1){
+        memory.setCo2(sensors.readSensorsMQ(memory, adc));
+        delay(100);
+        memory.setCo2_voltage(sensors.getVoltage(sensors.getADC(2,adc)));
+      }else if(memory.getCh4_state()==1){
+        memory.setCh4(sensors.readSensorsMQ(memory, adc));
+        delay(100);
+        memory.setCh4_voltage(sensors.getVoltage(sensors.getADC(1,adc)));
+      }
       delay(100);
-      memory.setCo_voltage(sensors.getVoltage(sensors.getADC(0,adc)));
-    }else if(memory.getCo2_state()==1){
-      memory.setCo2(sensors.readSensorsMQ(memory, adc));
-      delay(100);
-      memory.setCo2_voltage(sensors.getVoltage(sensors.getADC(2,adc)));
-    }else if(memory.getCh4_state()==1){
-      memory.setCh4(sensors.readSensorsMQ(memory, adc));
-      delay(100);
-      memory.setCh4_voltage(sensors.getVoltage(sensors.getADC(1,adc)));
+      memory.setHumidity(sensors.readSensorsBME("humidity", bme, memory));
+      memory.setPressure(sensors.readSensorsBME("pressure", bme, memory));
+      memory.setTemperature(sensors.readSensorsBME("temperature", bme, memory));
+      memory.setHeight(sensors.readSensorsBME("height", bme, memory));
+      Serial.println("ok.");
     }
-    delay(100);
-    memory.setHumidity(sensors.readSensorsBME("humidity", bme, memory));
-    memory.setPressure(sensors.readSensorsBME("pressure", bme, memory));
-    memory.setTemperature(sensors.readSensorsBME("temperature", bme, memory));
-    memory.setHeight(sensors.readSensorsBME("height", bme, memory));
-    Serial.println("ok.");
     delay(memory.getTime_to_sleep()*60000);
   }
   vTaskDelay(10);

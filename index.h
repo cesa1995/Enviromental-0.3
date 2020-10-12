@@ -229,6 +229,7 @@ void startServers(){
   server.on("/making_calibration.html", HTTP_POST, [](AsyncWebServerRequest *request){
     if(request->hasParam("gas", true)){
       String ATM=request->getParam("gas", true)->value();
+      memory.set_calibrating(1);
       if(memory.getCo_state()==1){
         Serial.println("calibrando CO");
         memory.setCo_Atm(ATM.toInt());
@@ -242,9 +243,9 @@ void startServers(){
         memory.setCh4_Atm(ATM.toInt());
         memory.setCh4_ro(sensors.calibrateSensors(memory, adc));
       }
-    
-    memory.writeConfiguration(conf);
-    request->send(SPIFFS, "/making_calibration.html", String(), false, processor);
+      memory.writeConfiguration(conf);
+      memory.set_calibrating(0);
+      request->send(SPIFFS, "/making_calibration.html", String(), false, processor);
     }
   });
 

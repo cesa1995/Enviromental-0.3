@@ -392,3 +392,11 @@ int memory::getCh4_state(){
 void memory::setCh4_state(int state){
   CH4.state=state;
 }
+
+void memory::set_calibrating(int state){
+  calibrating=state;
+}
+
+int memory::get_calibrating(){
+  return calibrating;
+}

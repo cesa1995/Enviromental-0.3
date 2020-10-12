@@ -78,10 +78,14 @@ class memory{
     void setCh4_voltage(float vol);
     int getCh4_state();
     void setCh4_state(int state);
+
+    void set_calibrating(int state);
+    int get_calibrating();
     
     
   private:
     float TIME_TO_SLEEP;
+    int calibrating;
 
     struct wifiAP {
       char ssid[50];
