@@ -31,13 +31,7 @@
                     </li>
                     <li><a href="hour.html">Configuraci&oacute;n Hora</a></li>
                     <li><a href="time.html">Configuraci&oacute;n Tiempo</a></li>
-                    <li>Calibrar
-                        <ul>
-                            <li><a href="calibrar.html?type=co">Monoxido de Carbono</a></li>
-                            <li><a href="calibrar.html?type=co2">Dioxido de Carbono</a></li>
-                            <li><a href="calibrar.html?type=ch4">Metano</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="calibrar.html">Calibrar Sensor</a></li>
                     <li><a href="download.html">Descargar Datos</a></li>
                     <li><a href="erase_data.html?type=datos">Borrar datos</a></li>
                     <li><a href="erase_data.html?type=config">Borrar Configuraci&oacute;n</a></li>
@@ -52,11 +46,13 @@
                     <p>APN: %apn%</p>
                     <p>Usuario: %user%</p>
                     <p>Contrase&ntilde;a: %passApn%</p>
+                    <p>%simState%</p>
                 </div>
                 <div>
                     <h4>ESTACI&Oacute;N</h4>
                     <p>SSID: %ssidSta%</p> 
                     <p>Contrase&ntilde;a: %passSta%</p>
+                    <p>IP: %ipstation%</p>
                 </div>
                 <div>
                     <h4>PUNTO DE ACCESO</h4>
@@ -66,28 +62,55 @@
             </div>
         </div>
         <div class="info-2">
-            <h2>HORA </h2>
-            <h4>%hour%</h4>
-            <h2>Tiempo </h2>
-            <h4>%time% min</h4>
+            <div class="info-2_contenedor">
+                <div>
+                    <h2>HORA </h2>
+                    <h4>%hour%</h4>
+                    <h2>Tiempo </h2>
+                    <h4>%time% min</h4>
+                </div>
+                <div>
+                    <h2>Memoria</h2>
+                    <h4>%memory%</h4>
+                    <h4>%memoryPercent%</h4>
+                </div>
+            </div>
         </div>
         <div class="info-3">
             <h2>CO2 </h2>
             <h4>%co2% ppm</h4>
             <h4>R0: %rco2%</h4>
             <h4>ATM: %atmco2%</h4>
+            <h4>V: %volco2%</h4>
+            <form action="/save.html" method="POST">
+                <input type="hidden" name="type" value="5">
+                <input type="hidden" name="0" value="0" >
+                <button>%stateCO2%</button>
+            </form>
         </div>
         <div class="info-4">
             <h2>CO </h2>
             <h4>%co% ppm</h4>
             <h4>R0: %rco%</h4>
             <h4>ATM: %atmco%</h4>
+            <h4>V: %volco%</h4>
+            <form action="/save.html" method="POST">
+                <input type="hidden" name="type" value="5">
+                <input type="hidden" name="0" value="1" >
+                <button>%stateCO%</button>
+            </form>
         </div>
         <div class="info-5">
             <h2>CH4 </h2>
             <h4>%ch4% ppm</h4>
             <h4>R0: %rch4%</h4>
             <h4>ATM: %atmch4%</h4>
+            <h4>V: %volch4%</h4>
+            <form action="/save.html" method="POST">
+                <input type="hidden" name="type" value="5">
+                <input type="hidden" name="0" value="2" >
+                <button>%stateCH4%</button>
+            </form>
         </div>
         <div class="info-6">
             <h3>Humedad </h3>

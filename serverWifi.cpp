@@ -1,6 +1,5 @@
 #include "serverWifi.h"
 
-serverWifi::serverWifi(){}
 
 void serverWifi::begin(memory memory, timeClock timeClock){
   WiFi.mode(WIFI_AP_STA);
@@ -14,6 +13,7 @@ void serverWifi::AP_connect(memory memory){
   Serial.print("Configurando AP: ");
   Serial.println(memory.getSsid_AP());
   WiFi.softAP(memory.getSsid_AP(), memory.getPasswd_AP());
+  Serial.println(WiFi.softAPIP());
 }
 
 void serverWifi::STA_connect(memory memory, timeClock timeClock){
@@ -35,11 +35,18 @@ void serverWifi::STA_connect(memory memory, timeClock timeClock){
       Serial.println(WiFi.localIP());
 
     timeClock.begin();
+    state=2;
       
     }else{
       Serial.println("Error al conectar con el punto de acceso");
+      state=0;
     }
   }else{
     Serial.println("No existe el archivo de configuracion");
+    state=1;
   }
+}
+
+int serverWifi::get_state(){
+  return state;
 }

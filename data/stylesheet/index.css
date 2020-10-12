@@ -66,23 +66,8 @@ body{
     background-position: 0 -144px;
 }
 
-.menu-ul li:nth-child(5) ul{
-   border-bottom: 1px solid #3b3a75;
-   border-top: 1px solid #3b3a75;
-}
-
-.menu-ul li:nth-child(5) ul li:nth-child(1) a{
-    background-position: 0 -192px;
-    border: none;
-}
-
-.menu-ul li:nth-child(5) ul li:nth-child(2) a{
-    background-position: 0 -216px;
-    border: none;
-}
-
-.menu-ul li:nth-child(5) ul li:nth-child(3) a{
-    background-position: 0 -240px;
+.menu-ul li:nth-child(5) a{
+    background-position: 0 -168px;
     border: none;
 }
 
@@ -171,7 +156,7 @@ body{
     
 }
 
-.contenedor .info-2,
+
 .contenedor .info-3,
 .contenedor .info-4,
 .contenedor .info-5,
@@ -183,11 +168,13 @@ body{
     text-align: center;
 }
 
+.contenedor .info-2,
 .contenedor .info-1{
     grid-area: info-1;
     padding: 0;
 }
 
+.contenedor .info-2 .info-2_contenedor,
 .contenedor .info-1 .info-1_contenedor{
     display: flex;
     flex-wrap: wrap;
@@ -201,6 +188,18 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.contenedor .info-3 button,
+.contenedor .info-4 button,
+.contenedor .info-5 button{
+    text-decoration: none;
+    margin: 2px;
+    padding: 5px;
+    border-radius: 40px;
+    border: 2px solid #000000;
+    color: #000000;
+    background-color: #fff;
 }
 
 .contenedor .info-2{

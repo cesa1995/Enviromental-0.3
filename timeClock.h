@@ -2,12 +2,11 @@
 #define timeClock_h
 
 #include "Arduino.h"
-#include "time.h"
-#include "sys/time.h"
+#include <time.h>
+#include <sys/time.h>
 
 class timeClock{
   public:
-    timeClock();
     bool begin();
     String getTiempo();
     void setTiempo(int set_year, int set_mon, int set_mday, int set_hour, int set_min);

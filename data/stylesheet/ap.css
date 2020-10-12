@@ -66,24 +66,8 @@ body{
     background-position: 0 -144px;
 }
 
-.menu-ul li:nth-child(5) ul{
-   border-bottom: 1px solid #3b3a75;
-   border-top: 1px solid #3b3a75;
-}
-
-.menu-ul li:nth-child(5) ul li:nth-child(1) a{
-    background-position: 0 -192px;
-    border: none;
-}
-
-.menu-ul li:nth-child(5) ul li:nth-child(2) a{
-    background-position: 0 -216px;
-    border: none;
-}
-
-.menu-ul li:nth-child(5) ul li:nth-child(3) a{
-    background-position: 0 -240px;
-    border: none;
+.menu-ul li:nth-child(5) a{
+    background-position: 0 -168px;
 }
 
 .menu-ul li:nth-child(6) a{

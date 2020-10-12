@@ -4,87 +4,56 @@
 #include "WiFi.h"
 #include "ESPAsyncWebServer.h"
 #include "SPIFFS.h"
-#include "things.h"
 #include "ArduinoJson.h"
+#include "gsm.h"
+#include "data.h"
+#include "mqtt.h"
 
+//creando mqtt
+mqtt mqtt;
+
+//creando memoria
 memory memory;
-AsyncWebServer server(80);
+
+//creando wifi
 serverWifi se;
+WiFiClient WifiClient;
+
+//creando tiempo
 timeClock timeClock;
-things things;
+
+//creando sensores 
+data sensors;
+Adafruit_ADS1115 adc;
+Adafruit_BME280 bme;
+
+//creando tareas
+TaskHandle_t Task1;
+TaskHandle_t Task2;
+
+//iniciar libreria del servidor
+AsyncWebServer server(80);
+
+//modem GSM
+#define TINY_GSM_MODEM_SIM800
+#include <TinyGsmClient.h>
+HardwareSerial SerialGsm(2);
+TinyGsm modem(SerialGsm);
+TinyGsmClient GsmClient(modem);
+gsm gsm;
+
+//mqtt
+PubSubClient mqttGSM(GsmClient);
+PubSubClient mqttWIFI(WifiClient);
+char broker[] = "demo.thingsboard.io";
+#define TOKEN "chW5YCF2eXJjqeTSquvC"
+#define FIRMWARE "0.1"
+#define NUMERO_SERIAL  "SN-009"
 
 const char* conf="/config.txt";
 const char* data="/data.txt";
 
-String processor(const String& var){
-
-  if(var=="apn"){
-    return memory.getApn();
-  }
-
-  if(var=="user"){
-    return memory.getApn_user();
-  }
-
-  if(var=="passApn"){
-    return memory.getApn_pass();
-  }
-
-  if(var=="ssidSta"){
-    return memory.getSsid_STA();
-  }
-
-  if(var=="passSta"){
-    return memory.getPasswd_STA();
-  }
-
-  if(var=="ssidAp"){
-    return memory.getSsid_AP();
-  }
-
-  if(var=="passAp"){
-    return memory.getPasswd_AP();
-  }
-
-  if(var=="hour"){
-    return timeClock.getTiempo();
-  }
-
-  if(var=="time"){
-    return (String)memory.getTime_to_sleep();
-  }
-
-  if(var=="co2"){
-    return (String)memory.getCo2();
-  }
-
-  if(var=="co"){
-    return (String)memory.getCo();
-  }
-
-  if(var=="ch4"){
-    return (String)memory.getCh4();
-  }
-
-  if(var=="humedity"){
-    return (String)memory.getHumidity();
-  }
-
-  if(var=="temperature"){
-    return (String)memory.getTemperature();
-  }
-
-  if(var=="presion"){
-    return (String)memory.getPressure();
-  }
-
-  if(var=="higth"){
-    return (String)memory.getHeight();
-  }
-  
-  return String();
-}
-
+#include "index.h"
 
 void setup() {
   // put your setup code here, to run once:
@@ -92,122 +61,94 @@ void setup() {
   
   //montar la memoria interna del micro
   if(!memory.begin()){
-    Serial.println("error al montar memoria spiffs");
+    Serial.println("error al montar memoria ffat");
     return;
   }
   memory.readConfiguration(conf);
   memory.writeConfiguration(conf);
-  Serial.println(memory.sizeFiles());
-  se.begin(memory, timeClock);  
-  // index.html
-  server.on("/", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/index.html", String(), false, processor);
-  });
+  se.begin(memory, timeClock);
+
+  // Start GSM
   
-  // logo.ico
-  server.on("/logo.ico", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/logo.ico", "image/x-ico");
-  });
+  // Start convertidor analogico digital
+  adc.setGain(GAIN_TWO);
+  adc.begin();
 
-  // index.css
-  server.on("/stylesheet/index.css", HTTP_GET, [](AsyncWebServerRequest *request){    
-    
-    request->send(SPIFFS, "/stylesheet/index.css","text/css");
-  });
-
-  // index.css
-  server.on("/stylesheet/ap.css", HTTP_GET, [](AsyncWebServerRequest *request){    
-    request->send(SPIFFS, "/stylesheet/ap.css", "text/css");
-  });
-
-  //iconos.png
-  server.on("/stylesheet/iconos.png", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/stylesheet/iconos.png", "image/png");  
-  });
-
-  //menu
-  server.on("/stylesheet/menu.png", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/stylesheet/menu.png", "image/png");  
-  });
+  // start sensoor bme
+  bool status;
+  status = bme.begin(0x76);
+  if (!status) {
+    Serial.println("Could not find a valid BME280 sensor, check wiring!");
+    while (1);
+  }
   
-  // ap.html
-  server.on("/ap.html", HTTP_GET, [](AsyncWebServerRequest *request){    
-    request->send(SPIFFS, "/ap.html", String());
-  });
-
-  //apn.html
-  server.on("/apn.html", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/apn.html", String());  
-  });
-
-  //calibrar.html
-  server.on("/calibrar.html", HTTP_GET, [](AsyncWebServerRequest *request){
-    if(request->hasParam("type")){
-    
-    }
-    request->send(SPIFFS, "/calibrar.html", String());  
-  });
-
-  //hour.html
-  server.on("/hour.html", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/hour.html", String());  
-  });
-
-  //sta.html
-  server.on("/sta.html", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/sta.html", String());  
-  });
-
-  //time.html
-  server.on("/time.html", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/time.html", String());  
-  });
-
-  //download.html
-  server.on("/download.html", HTTP_GET, [](AsyncWebServerRequest *request){
-    request->send(SPIFFS, "/download.html", String());  
-  });
-
-  //erase_data.html
-  server.on("/erase_data.html", HTTP_GET, [](AsyncWebServerRequest *request){
-    if(request->hasParam("type")){
-      if(request->getParam("type")->value()=="datos"){
-        memory.deleteFile(data);
-      }
-      if(request->getParam("type")->value()=="config"){
-        Serial.println("eliminando configuracion.");
-        memory.deleteFile(conf);
-        memory.readConfiguration(conf);
-        memory.writeConfiguration(conf);
-      }
-    }
-    request->send(SPIFFS, "/erase_data.html", String());  
-  }); 
-
-  //save.html
-  server.on("/save.html", HTTP_POST, [](AsyncWebServerRequest *request){
-    if(request->hasParam("type", true)){
-      Serial.print("guardando...");
-      String argss[3];
-      argss[0]=request->getParam("0", true)->value();
-      if(request->hasParam("1", true)){
-        argss[1]=request->getParam("1", true)->value();
-      }
-      if(request->hasParam("2", true)){
-        argss[2]=request->getParam("2", true)->value();
-      }
-      int type=request->getParam("type", true)->value().toInt(); 
-      Serial.println(type);
-      memory.getServerConfig(type, argss, memory ,timeClock, conf);  
-    }
-    request->send(SPIFFS, "/save.html", String());  
-  }); 
-
   // Start server
+  startServers();
   server.begin();
+  
+//-----------------task1-----------
+  xTaskCreate(
+    Task1code,   // Task function.
+    "Task1",     // name of task.
+    10000,       // Stack size of task
+    NULL,        // parameter of the task
+    1,           // priority of the task
+    &Task1);     // Task handle to keep track of created task
+
+//-----------------task2-----------
+  xTaskCreate(
+    Task2code,   // Task function.
+    "Task2",     // name of task.
+    10000,       // Stack size of task
+    NULL,        // parameter of the task
+    2,           // priority of the task
+    &Task2);     // Task handle to keep track of created task
+}
+
+//-----------Task1code-----------------
+void Task1code( void * pvParameters ) {
+  //delay(1000);
+  //btStop();
+  for (;;) {
+    if(memory.getCo_state()==1){
+      memory.setCo(sensors.readSensorsMQ(memory, adc));
+      delay(100);
+      memory.setCo_voltage(sensors.getVoltage(sensors.getADC(0,adc)));
+    }else if(memory.getCo2_state()==1){
+      memory.setCo2(sensors.readSensorsMQ(memory, adc));
+      delay(100);
+      memory.setCo2_voltage(sensors.getVoltage(sensors.getADC(2,adc)));
+    }else if(memory.getCh4_state()==1){
+      memory.setCh4(sensors.readSensorsMQ(memory, adc));
+      delay(100);
+      memory.setCh4_voltage(sensors.getVoltage(sensors.getADC(1,adc)));
+    }
+    delay(100);
+    memory.setHumidity(sensors.readSensorsBME("humidity", bme, memory));
+    memory.setPressure(sensors.readSensorsBME("pressure", bme, memory));
+    memory.setTemperature(sensors.readSensorsBME("temperature", bme, memory));
+    memory.setHeight(sensors.readSensorsBME("height", bme, memory));
+    Serial.println("ok.");
+    delay(memory.getTime_to_sleep()*60000);
+  }
+  vTaskDelay(10);
+}
+
+//-----------Task2code-----------------
+void Task2code( void * pvParameters ) {
+  gsm.GSM_begin(SerialGsm, timeClock, modem, memory);
+  vTaskDelete(NULL);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+  delay(3000);
+  if(gsm.get_state()==4){
+    mqtt.mqtt_connect(mqttGSM, broker, TOKEN, FIRMWARE, NUMERO_SERIAL);
+    mqtt.mqttSend_data(memory, mqttGSM);
+  }else if(se.get_state()==2){
+    mqtt.mqtt_connect(mqttWIFI, broker, TOKEN, FIRMWARE, NUMERO_SERIAL);
+    mqtt.mqttSend_data(memory, mqttWIFI);
+  }
+  memory.saveData(timeClock, data);
+  delay(memory.getTime_to_sleep()*60000);
 }

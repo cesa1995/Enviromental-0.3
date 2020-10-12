@@ -1,6 +1,5 @@
 #include "timeClock.h"
 
-timeClock::timeClock(){}
 
 bool timeClock::begin(){
   bool success=true;
